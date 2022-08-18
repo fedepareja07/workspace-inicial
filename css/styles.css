@@ -188,3 +188,54 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.autos {
+  padding: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  max-width: 20%;
+  height: auto; 
+}
+
+.titulo {
+  color:#495057;
+font-family: Raleway;
+font-size: 24px;
+font-weight: 500;
+line-height:
+28.8px;
+margin:
+0px 0px;
+}
+
+.descripcion {
+  color:
+  #495057;
+  font-family:
+  Raleway;
+  line-height:
+  24px;
+  margin:
+  0px 0px 4px;
+}
+ 
+
+.coches {
+  background-color:
+#f8f9fa;
+border-color:
+#000000;
+border-radius:
+4px 4px 0px 0px;
+border-style:
+solid;
+border-width:
+1px;
+color:
+#495057;
+line-height:
+24px;
+padding:
+8px 16px;
+}
