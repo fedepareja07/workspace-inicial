@@ -26,3 +26,4 @@ if(buena()){
 mostrarAlerta1.style.display="block";
 };
 });
+

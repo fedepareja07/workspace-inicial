@@ -13,4 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 });
 
-location.href="login.html";
+
+if (document.referrer.indexOf("index.html") != -1) {
+    window.location = "login.html";
+  } 
