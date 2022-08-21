@@ -6,13 +6,28 @@ async function datos() {
    for (let elemento of traidos.products) {
       traerListado.innerHTML +=`
       <link href="css/styles.css" rel="stylesheet">
-      <div class="coches">
-      <img src="${elemento.image}" class="autos" >
-      <h4 class="titulo"> ${elemento.name} ${elemento.currency}  ${elemento.cost}" </h4>
-      <p class="descripcion"> ${elemento.description}</p>
-      <p class="vendidos"> ${elemento.soldCount} Vendidos</p>
-      
-    </div>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <div class="container">
+         <div class="row">
+            <div class="list-group">
+               <div class="list-group-item list-group-item-action cursor-active">
+                     <div class="row">
+                        <div class="col-3">
+                           <img class="img-thumbnail" src="${elemento.image}">
+                        </div>
+                           <div class="col">
+                              <div class="d-flex w100 justify-content-between">
+                                 <h4 class="text-muted"> ${elemento.name} ${elemento.currency}${elemento.cost}</h4>
+                                 <small class="text-muted">${elemento.soldCount} vendido</small>
+                              </div>
+                              <p class="mb-1">${elemento.description}</p>
+                           </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>      
+  
       `
    }
 }
