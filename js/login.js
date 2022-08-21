@@ -20,7 +20,7 @@ return value;
 
 btn.addEventListener("click", () => {
 if(buena()){
-    window.location.replace("index.html")
+    window.location.replace("principal.html")
 } else {
     mostrarAlerta.style.display="block";
 mostrarAlerta1.style.display="block";

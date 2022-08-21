@@ -14,6 +14,3 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 
-if (document.referrer.indexOf("index.html") != -1) {
-    window.location = "login.html";
-  } 
