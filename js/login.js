@@ -1,11 +1,14 @@
-let btn = document.getElementById("btn");
+
 let inputs = document.querySelectorAll(".control");
 let value = false;
 let mostrarAlerta = document.querySelector(".form-alert");
 let mostrarAlerta1 = document.querySelector(".form-alert1");
 
+ 
+
 mostrarAlerta.style.display="none";
 mostrarAlerta1.style.display="none";
+
 
 function buena(){
 for (let input of inputs){
@@ -16,7 +19,9 @@ value = false;
 }
 }
 return value;
-}
+};
+
+let eemail = document.getElementById("email");
 
 btn.addEventListener("click", () => {
 if(buena()){
@@ -25,5 +30,7 @@ if(buena()){
     mostrarAlerta.style.display="block";
 mostrarAlerta1.style.display="block";
 };
+localStorage.setItem("email",eemail.value);
 });
+
 
