@@ -1,27 +1,27 @@
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_PROD_COUNT = "Cant.";
-let arrayListado = [];
+let currentCategoriesArray = [];
 let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
-function sortCategories(cr, array){
+function sortCategories(criteria, array){
     let result = [];
-    if (cr === ORDER_ASC_BY_NAME)
+    if (criteria === ORDER_ASC_BY_NAME)
     {
         result = array.sort(function(a, b) {
             if ( a.name < b.name ){ return -1; }
             if ( a.name > b.name ){ return 1; }
             return 0;
         });
-    }else if (cr === ORDER_DESC_BY_NAME){
+    }else if (criteria === ORDER_DESC_BY_NAME){
         result = array.sort(function(a, b) {
             if ( a.name > b.name ){ return -1; }
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (cr === ORDER_BY_PROD_COUNT){
+    }else if (criteria === ORDER_BY_PROD_COUNT){
         result = array.sort(function(a, b) {
             let aCount = parseInt(a.productCount);
             let bCount = parseInt(b.productCount);
@@ -40,27 +40,27 @@ function setCatID(id) {
     window.location = "products.html"
 }
 
-function mostrarListado(){
+function showCategoriesList(){
 
     let htmlContentToAppend = "";
-    for(let i = 0; i < arrayListado.length; i++){
-        let listado = arrayListado[i];
+    for(let i = 0; i < currentCategoriesArray.length; i++){
+        let category = currentCategoriesArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(listado.productCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(listado.productCount) <= maxCount))){
+        if (((minCount == undefined) || (minCount != undefined && parseInt(category.productCount) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
 
             htmlContentToAppend += `
-            <div onclick="setCatID(${listado.id})" class="list-group-item list-group-item-action cursor-active">
+            <div onclick="setCatID(${category.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
-                        <img src="${listado.imgSrc}" alt="${listado.description}" class="img-thumbnail">
+                        <img src="${category.imgSrc}" alt="${category.description}" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">${listado.name}</h4>
-                            <small class="text-muted">${listado.productCount} artículos</small>
+                            <h4 class="mb-1">${category.name}</h4>
+                            <small class="text-muted">${category.productCount} artículos</small>
                         </div>
-                        <p class="mb-1">${listado.description}</p>
+                        <p class="mb-1">${category.description}</p>
                     </div>
                 </div>
             </div>
@@ -71,19 +71,18 @@ function mostrarListado(){
     }
 }
 
-function traerListadoSort(sortCr, categoriesArray){
+function sortAndShowCategories(sortCriteria, categoriesArray){
     currentSortCriteria = sortCriteria;
 
     if(categoriesArray != undefined){
-        arrayListado = categoriesArray;
+        currentCategoriesArray = categoriesArray;
     }
 
-    arrayListado = sortCategories(currentSortCriteria, arrayListado);
+    currentCategoriesArray = sortCategories(currentSortCriteria, currentCategoriesArray);
 
     //Muestro las categorías ordenadas
-    mostrarListado();
+    showCategoriesList();
 }
-
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
@@ -91,22 +90,22 @@ function traerListadoSort(sortCr, categoriesArray){
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
-            arrayListado = resultObj.data
-            mostrarListado()
-            //traerListadoSort(ORDER_ASC_BY_NAME, resultObj.data);
+            currentCategoriesArray = resultObj.data
+            showCategoriesList()
+            //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
         }
     });
 
     document.getElementById("sortAsc").addEventListener("click", function(){
-        traerListadoSort(ORDER_ASC_BY_NAME);
+        sortAndShowCategories(ORDER_ASC_BY_NAME);
     });
 
     document.getElementById("sortDesc").addEventListener("click", function(){
-        traerListadoSort(ORDER_DESC_BY_NAME);
+        sortAndShowCategories(ORDER_DESC_BY_NAME);
     });
 
     document.getElementById("sortByCount").addEventListener("click", function(){
-        traerListadoSort(ORDER_BY_PROD_COUNT);
+        sortAndShowCategories(ORDER_BY_PROD_COUNT);
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
@@ -116,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         minCount = undefined;
         maxCount = undefined;
 
-        traerListado();
+        showCategoriesList();
     });
 
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
@@ -139,6 +138,6 @@ document.addEventListener("DOMContentLoaded", function(e){
             maxCount = undefined;
         }
 
-        traerListado();
+        showCategoriesList();
     });
 });
