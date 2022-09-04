@@ -2,7 +2,7 @@ let userM = document.getElementById('userSet');
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    let emailCorrecto = localStorage.getItem("email"); // CONSIGNA 1 ENTREGA 2
+    let emailCorrecto = localStorage.getItem("email"); 
     userM.innerHTML += `
     <a class="nav-link active" href="my-profile.html">${emailCorrecto}</a>    
     `
